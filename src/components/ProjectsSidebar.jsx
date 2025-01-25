@@ -21,7 +21,7 @@ export default function ProjectsSidebar() {
     let projectsClasses = 'mt-8';
     if (projects.length === 0) {
       projectsClasses += 'bg-stone-950 rounded-md p-0.5';
-    }
+    } 
 
     return (
       <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">

@@ -11,7 +11,7 @@ export default function SelectedProject() {
 
   const tasks = projectsState.tasks.filter(
     task => task.projectId === projectsState.selectedProjectId
-  );
+  ); 
 
   const dispatch = useDispatch();
   
