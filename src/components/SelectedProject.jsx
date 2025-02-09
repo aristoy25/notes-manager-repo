@@ -41,7 +41,7 @@ export default function SelectedProject() {
             {project.title}
           </h1>
           <button
-            className="text-stone-600 hover:text-stone-950"
+            className="text-stone-600 hover:text-stone-950 hover:bg-red-200 p-2 rounded-md hover:border hover:border-red-400 transition-colors"
             onClick={onDelete}
           >
             Delete

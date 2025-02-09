@@ -33,12 +33,15 @@ export default function ProjectsSidebar() {
         </div>
         <ul className={projectsClasses}>
           {projects.map((project) => {
-            let cssClasses = "w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-700";
+            let cssClasses = "w-full text-left px-2 py-1 rounded-md my-1 hover:text-stone-200 hover:bg-stone-700";
   
             if (project.id === selectedProjectId) {
               cssClasses += ' bg-stone-800 text-stone-200'
             } else {
-              cssClasses += ' text-stone-400'
+              // Remove bg-stone-800 and text-stone-200 classes to indicate that the project unselected
+              const cssClassesArr = cssClasses.split(' ');
+              const cssClassesArrFiltered = cssClassesArr.filter((cssClass) => cssClass !== 'bg-stone-800' && cssClass !== 'text-stone-200');
+              cssClasses = cssClassesArrFiltered.join(' ');             
             }
   
             return (
