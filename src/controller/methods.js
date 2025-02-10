@@ -9,7 +9,7 @@ const getProjects = async () => {
     }
 }
 
-const addProject = async ( project ) => {
+const addProjectAxios = async ( project ) => {
     try {
         const response = await axios.post('http://localhost:3000/notes', project);
         return response.data;
@@ -18,4 +18,4 @@ const addProject = async ( project ) => {
     }
 };
 
-export { getProjects, addProject };
+export { getProjects, addProjectAxios };

@@ -30,12 +30,13 @@ const noteSlice = createSlice({
             state.selectedProjectId = undefined;
         },
         addProject(state,action) {
-            const projectId = Math.random();
-            const newProject = {
-                id: projectId,
-                ...action.payload
+            const newNote = {
+                ...action.payload,
             }
-            state.projects.unshift(newProject);
+
+            console.log(newNote);
+
+            state.projects.unshift(newNote);
         },
         deleteProject(state,action) {
             state.projects = state.projects.filter( project => project.id !== action.payload.id);

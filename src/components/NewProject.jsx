@@ -3,11 +3,13 @@ import Input from '../components/Input.jsx';
 import Modal from '../components/Modal.jsx';
 import { useDispatch } from 'react-redux';
 import { notesActions } from '../store/noteSlice.js';
- 
+import { addProjectAxios } from '../controller/methods.js';
+
 export default function NewProject(){
     const dispatch = useDispatch();
-    const onAdd = (project) => {
+    const onAdd = async (project) => {
         dispatch(notesActions.addProject(project));
+        await addProjectAxios(project);
     };
 
     const onCancel = () => {
@@ -37,7 +39,8 @@ export default function NewProject(){
         onAdd({
             title: enteredTitle,
             description: enteredDescription,
-            dueDate: enteredDueDate
+            dueDate: enteredDueDate,
+            id: Math.random().toString()
         });
     }
 
