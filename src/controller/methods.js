@@ -7,7 +7,16 @@ const getProjects = async () => {
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+const getTasks = async () => {
+    try {
+    const response = await axios.get('http://localhost:3000/tasks');
+    return response.data;       
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 const addProjectAxios = async ( project ) => {
     try {
@@ -18,4 +27,13 @@ const addProjectAxios = async ( project ) => {
     }
 };
 
-export { getProjects, addProjectAxios };
+const addTaskAxios = async ( task ) => {
+    try {
+        const response = await axios.post('http://localhost:3000/tasks', task);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export { getProjects, getTasks, addProjectAxios, addTaskAxios };

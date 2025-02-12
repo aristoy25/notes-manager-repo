@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal.jsx";
 import { useRef } from "react";
+import { addTaskAxios } from "../controller/methods.js";
 
 export default function NewTask({ onAdd }){
     const [enteredTask,setEnteredTask]=useState('');

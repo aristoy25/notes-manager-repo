@@ -8,7 +8,7 @@ import SelectedProject from './components/SelectedProject.jsx';
 import { useDispatch } from 'react-redux';
 import { notesActions } from './store/noteSlice.js';
 
-import { getProjects } from './controller/methods.js';
+import { getProjects, getTasks } from './controller/methods.js';
 function App() {
 
   const projectsState = useSelector(state => state.notes);
@@ -29,6 +29,13 @@ function App() {
       .catch(error => {
         console.log(error);
       });
+
+    getTasks().then(response => {
+        response.forEach(task => {
+          dispatch(notesActions.addTask(task));
+        });
+      })
+
   }, [ dispatch ]);
 
   let content = (

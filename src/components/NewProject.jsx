@@ -40,7 +40,7 @@ export default function NewProject(){
             title: enteredTitle,
             description: enteredDescription,
             dueDate: enteredDueDate,
-            id: Math.random().toString()
+            id: Math.random().toFixed(5).toString().split('.')[1]
         });
     }
 

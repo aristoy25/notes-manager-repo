@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import fs from 'fs';
 import { title } from 'process';
-import { validateNote } from './middleware/validateNote.js';
+import { validateNote, validateTask } from './middleware/validateNote.js';
 
 const app = express();
 app.use(cors());
@@ -30,13 +30,48 @@ app.post('/notes', validateNote, (req, res, next) => {
     const newNote = req.body;
     console.log(newNote);
     notes.push(newNote);
-    fs.writeFile('./data/notes.json', JSON.stringify(notes), (err) => {
+    fs.writeFile('./data/notes.json', JSON.stringify(notes, null, 2), (err) => {
         if(err) {
             res.status(500).send('Error writing notes file');
             return;
         }
         res.send(newNote);
     });
+});
+
+app.get('/tasks', (req,res) => {
+    fs.readFile('./data/tasks.json', 'utf8', (err, data) => {
+        if(err) {
+            res.status(500).send('Error reading tasks file');
+            return;
+        }
+        res.send(data);
+    });
+})
+
+app.post('/tasks', validateTask, (req, res, next) => {
+    //read the tasks file
+    const tasks = JSON.parse(fs.readFileSync('./data/tasks.json', 'utf8'));
+    const newTask = req.body;
+    console.log(newTask);
+    tasks.push(newTask);
+    fs.writeFile('./data/tasks.json', JSON.stringify(tasks, 2, null), (err) => {
+        if(err) {
+            res.status(500).send('Error writing tasks file');
+            return;
+        }
+        res.send(newTask);
+    });
+});
+
+app.get('/tasks/:id', (req,res) => {
+    const tasks = JSON.parse(fs.readFileSync('./data/tasks.json', 'utf8'));
+    const task = tasks.find(note => note.id === req.params.id);
+    if(!task) {
+        res.status(404).send('Note not found');
+        return;
+    }
+    res.send(task);
 });
 
 app.listen(3000, () => {

@@ -19,3 +19,19 @@ export const validateNote = (req, res, next) => {
     
     next();
 };
+
+export const validateTask = (req, res, next) => {
+    const { text, projectId, id } = req.body;
+    
+    if (!text || !projectId || !id) {
+        return res.status(400).send('Task must have text, projectId, and id');
+    }
+    if (text.trim().length === 0) {
+        return res.status(400).send('Text, projectId, and id cannot be empty');
+    }
+    if (text.length > 100) {
+        return res.status(400).send('Text must be less than 100 characters');
+    }
+    
+    next();
+};
