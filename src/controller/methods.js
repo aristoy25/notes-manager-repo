@@ -27,6 +27,15 @@ const addProjectAxios = async ( project ) => {
     }
 };
 
+const deleteProjectAxios = async ( id ) => {
+    try {
+        const response = await axios.delete(`http://localhost:3000/notes/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const addTaskAxios = async ( task ) => {
     try {
         const response = await axios.post('http://localhost:3000/tasks', task);
@@ -36,4 +45,13 @@ const addTaskAxios = async ( task ) => {
     }
 };
 
-export { getProjects, getTasks, addProjectAxios, addTaskAxios };
+const deleteTaskAxios = async ( id ) => {
+    try {
+        const response = await axios.delete(`http://localhost:3000/tasks/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export { getProjects, getTasks, addProjectAxios, addTaskAxios, deleteTaskAxios, deleteProjectAxios };

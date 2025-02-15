@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addTaskAxios } from "../controller/methods";
+import { addTaskAxios,deleteTaskAxios, deleteProjectAxios } from "../controller/methods";
 
 const noteSlice = createSlice({
     name: 'notes',
@@ -22,6 +22,7 @@ const noteSlice = createSlice({
         },
         deleteTask(state,action) {
             state.tasks = state.tasks.filter( task => task.id !== action.payload.id);
+            deleteTaskAxios(action.payload.id);
         },
         selectProject(state,action) {
             state.selectedProjectId = action.payload.id;
@@ -41,6 +42,9 @@ const noteSlice = createSlice({
         deleteProject(state,action) {
             state.projects = state.projects.filter( project => project.id !== action.payload.id);
             state.selectedProjectId = undefined;
+            deleteProjectAxios(action.payload.id).then(
+                ()=>{ state.selectedProjectId = undefined; }
+            )
         }
     }
 });

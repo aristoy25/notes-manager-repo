@@ -29,12 +29,12 @@ export default function NewTask({ onAdd }){
             </Modal>
             <input 
               type="text"
-              className="w-64 px-2 py-1 rounded-sm bg-stone-300 text-stone-700"
+              className="w-64 px-2 py-1 rounded-sm bg-stone-300 text-stone-700 hover:shadow-md shadow-black transition-shadow duration-300"
               onChange={handleChange}
               value={enteredTask}
             />
             <button
-              className="text-stone-700 hover:text-stone-950 border border-stone-50 hover:bg-green-200 hover:border-green-400 rounded-md transition-colors duration-500" 
+              className="text-stone-700 hover:text-stone-950 border border-stone-50 hover:bg-green-200 hover:border-green-400 rounded-md transition-colors duration-500 py-1 px-2" 
               onClick={handleClick}
             >
               Add Task

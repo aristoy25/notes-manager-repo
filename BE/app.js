@@ -22,7 +22,29 @@ app.get('/notes', (req,res) => {
         }
         res.send(data);
     });
-})
+});
+
+app.get('/notes/:id', (req,res) => {
+    const notes = JSON.parse(fs.readFileSync('./data/notes.json', 'utf8'));
+    const note = notes.find(note => note.id === req.params.id);
+    if(!note) {
+        res.status(404).send('Note not found');
+        return;
+    }
+    res.send(note);
+});
+
+app.delete('/notes/:id', (req,res) => {
+    const notes = JSON.parse(fs.readFileSync('./data/notes.json', 'utf8'));
+    const updatedNotes = notes.filter(note => note.id !== req.params.id);
+    fs.writeFile('./data/notes.json', JSON.stringify(updatedNotes, null, 2), (err) => {
+        if(err) {
+            res.status(500).send('Error writing notes file');
+            return;
+        }
+        res.send(updatedNotes);
+    });
+});
 
 app.post('/notes', validateNote, (req, res, next) => {
     //read the notes file
@@ -45,7 +67,7 @@ app.get('/tasks', (req,res) => {
             res.status(500).send('Error reading tasks file');
             return;
         }
-        res.send(data);
+        res.json( JSON.parse(data) );
     });
 })
 
@@ -61,6 +83,18 @@ app.post('/tasks', validateTask, (req, res, next) => {
             return;
         }
         res.send(newTask);
+    });
+});
+
+app.delete('/tasks/:id', (req,res) => {
+    const tasks = JSON.parse(fs.readFileSync('./data/tasks.json', 'utf8'));
+    const updatedTasks = tasks.filter(task => task.id !== req.params.id);
+    fs.writeFile('./data/tasks.json', JSON.stringify(updatedTasks, null, 2), (err) => {
+        if(err) {
+            res.status(500).send('Error writing tasks file');
+            return;
+        }
+        res.send(updatedTasks);
     });
 });
 
